@@ -131,7 +131,7 @@ body.go #ytbox{opacity:1;pointer-events:auto}
 
   <section id="qs">
     <h2>أسئلة بيني وبينك</h2>
-    <p class="sub">جاوبي براحتك، كل الإجابات حلوة.</p>
+    <p class="sub">٩ أسئلة سريعة، جاوبي براحتك.</p>
     <div id="qz"></div>
   </section>
 
@@ -375,29 +375,30 @@ function burst(x,y){
 
 /* أسئلة */
 const Q=[
- {q:"أحلى حاجة في يومي؟",o:["لما أسمع صوتك","لما أشوف رسالة منك","لما أفتكر ضحكتك"],r:"وأنا كل ده بيحصلي بسببك يا شيماء 💕"},
- {q:"لو هنسافر سوا، رايحين فين؟",o:["مكان على البحر","مدينة قديمة نتمشى فيها","أي حته المهم معاكي"],r:"أي مكان تختاريه هيبقى أحلى مكان 🌍"},
- {q:"إيه أكتر حاجة بتفرحك؟",o:["اهتمام بسيط من حد بتحبيه","مفاجأة حلوة","أغنية تحبيها"],r:"وأنا هجيبلك الاتنين والتلاتة كمان 🎁"},
- {q:"كلمة تعبّر عنك عندي؟",o:["الأمان","الفرحة","الدنيا كلها"],r:"كلها صح، وأكتر 💗"}
+ {q:"إيه لونك المفضل؟",o:["وردي","أسود","أزرق","أخضر"],r:"اختيار حلو جداً 🎨"},
+ {q:"أحلى فصل في السنة؟",o:["الصيف","الشتا","الربيع","الخريف"],r:"ليه لأ، كل فصل وله سحره 🍂"},
+ {q:"مشروبك المفضل؟",o:["قهوة","شاي","عصير","نسكافيه"],r:"يلا نعملها يوم نشربها سوا ☕"},
+ {q:"إيه أكتر حلو بتحبيه؟",o:["شوكولاتة","كنافة","آيس كريم","كيك"],r:"ذوق جميل! 🍰"},
+ {q:"نوع الأفلام اللي بتحبيها؟",o:["رومانسي","كوميدي","أكشن","رعب"],r:"هنختار فيلم حلو ونتفرج 🎬"},
+ {q:"تفضلي الصبح ولا الليل؟",o:["الصبح بنشاطه","الليل بهدوئه"],r:"والاتنين حلوين لو الواحد مبسوط 🌙"},
+ {q:"لو معاكي يوم إجازة كامل، هتعملي إيه؟",o:["أنام للصبح","أخرج مع صحابي","أتفرج على مسلسل","أطلع رحلة"],r:"يوم مضبوط والله 😄"},
+ {q:"أحلى مكان تحبي تزوريه؟",o:["شاطئ","جبل","مدينة قديمة","بلد برا مصر"],r:"مكان حلو، يا رب تروحيه قريب ✈️"},
+ {q:"أحلى أغنية بتسمعيها كتير؟",o:["رومانسية هادية","شعبي وحماس","أجنبي","كلاسيك قديم"],r:"ذوق موسيقي حلو 🎧"}
 ];
 let qi=0;
 function showQ(){
   const z=$('#qz');
   if(qi>=Q.length){
-    z.innerHTML=`<div class="dots">${Q.map(()=>'<i class="on"></i>').join('')}<i class="on"></i></div><h3>آخر سؤال: بتحبيني يا شيماء؟</h3><div class="fin"><button class="btn" id="yes">أيوه ♥</button><button class="btn ghost" id="no">لأ</button></div><div class="rep" id="fr"></div>`;
-    const no=$('#no');const run=()=>{no.style.transform=`translate(${rnd(-90,90)}px,${rnd(-30,60)}px)`};
-    no.onpointerenter=run;no.onpointerdown=e=>{e.preventDefault();run()};no.onclick=e=>e.preventDefault();
-    $('#yes').onclick=e=>{
-      $('#fr').textContent='كنت عارف! أنا كمان بحبك أكتر بكتير 💖';no.style.display='none';
-      for(let i=0;i<30;i++)setTimeout(()=>burst(rnd(30,innerWidth-30),rnd(innerHeight*.3,innerHeight*.8)),i*70);
-    };
+    z.innerHTML=`<div class="dots">${Q.map(()=>'<i class="on"></i>').join('')}</div><h3>خلصتي كل الأسئلة 🎉</h3><p class="rep">شكراً إنك جاوبتي، كل إجابة فيهم حلوة. 💖</p><button class="btn ghost" id="rq" style="margin-top:12px">ابدئي من الأول</button>`;
+    for(let i=0;i<20;i++)setTimeout(()=>burst(rnd(30,innerWidth-30),rnd(innerHeight*.3,innerHeight*.8)),i*80);
+    $('#rq').onclick=()=>{qi=0;showQ()};
     return;
   }
   const d=Q[qi];
-  z.innerHTML=`<div class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}<i></i></div><h3>${d.q}</h3><div class="opts">${d.o.map(t=>`<button class="opt">${t}</button>`).join('')}</div><div class="rep" id="rp"></div>`;
+  z.innerHTML=`<div class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}</div><h3>${d.q}</h3><div class="opts">${d.o.map(t=>`<button class="opt">${t}</button>`).join('')}</div><div class="rep" id="rp"></div>`;
   z.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
     z.querySelectorAll('.opt').forEach(x=>x.disabled=true);$('#rp').textContent=d.r;
-    setTimeout(()=>{qi++;showQ()},1700);
+    setTimeout(()=>{qi++;showQ()},1500);
   });
 }
 showQ();
