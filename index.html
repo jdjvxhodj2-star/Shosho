@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شيماء ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#190a1d;--bg2:#3a0f2e;--rose:#ff4d79;--gold:#f6c177;--cream:#fff1e6;--card:rgba(255,241,230,.07)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Cairo,system-ui,sans-serif;color:var(--cream);background:radial-gradient(120% 80% at 50% 0%,var(--bg2),var(--bg) 70%) fixed;min-height:100vh;overflow-x:hidden;line-height:1.7}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 50% 40%,#4a1239,#12060f);transition:opacity 1s,visibility 1s;padding:24px}
+#intro.off{opacity:0;visibility:hidden}
+#intro h1{font-family:'Aref Ruqaa',serif;font-size:clamp(3rem,16vw,6.5rem);line-height:1.1;text-shadow:0 0 30px rgba(255,77,121,.7)}
+#intro p{margin:12px 0 28px;opacity:.85}
+.btn{background:linear-gradient(135deg,var(--rose),#ff8a5c);border:0;border-radius:999px;padding:14px 34px;font-weight:800;font-size:1.1rem;box-shadow:0 10px 30px rgba(255,77,121,.45);transition:transform .2s}
+.btn:hover{transform:scale(1.06)}
+.btn.ghost{background:var(--card);box-shadow:none;border:1px solid rgba(255,241,230,.25)}
+.beat{display:inline-block;animation:beat 1.4s infinite}
+
+/* floating hearts */
+#fl{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+#fl span{position:absolute;bottom:-40px;color:var(--rose);opacity:.7;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-115vh) rotate(30deg);opacity:0}}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.07)}30%{transform:scale(1)}45%{transform:scale(1.05)}}
+
+main{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:40px 16px 90px}
+header{text-align:center;padding:10px 0 4px}
+header p{opacity:.8;font-size:1.05rem}
+
+/* word heart */
+.wrap{animation:beat 2.4s infinite;transform-origin:center 45%}
+#heart{container-type:inline-size;position:relative;width:min(100%,600px);aspect-ratio:2.6/2.45;margin:6px auto 0;filter:drop-shadow(0 0 18px rgba(255,77,121,.35))}
+.w{position:absolute;translate:-50% -50%;white-space:nowrap;font-size:max(8.5px,2.35cqw);font-weight:600;opacity:0;transition:color .4s,scale .4s,text-shadow .4s}
+.go .w{animation:pop .8s var(--d) both}
+.go .w.done{animation:none;opacity:.6}
+.go .w.lit{animation:none;opacity:1;color:#fff!important;scale:1.6;text-shadow:0 0 6px #fff,0 0 14px var(--rose),0 0 30px var(--rose);z-index:5}
+@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:.6;transform:scale(1)}}
+#outl{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#outl path{fill:rgba(255,77,121,.12);stroke:url(#og);stroke-width:2.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.go #outl path{animation:draw 2.6s .1s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#nm{position:absolute;left:50%;top:41%;translate:-50% -50%;font-family:'Aref Ruqaa',serif;font-size:15cqw;line-height:1;color:#fff;text-shadow:0 0 22px var(--rose),0 0 50px var(--rose);opacity:0}
+.go #nm{animation:pop 1.4s 1.2s both}
+.go #nm{animation-name:nmIn}
+@keyframes nmIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+#cap{text-align:center;font-family:'Aref Ruqaa',serif;font-size:1.5rem;color:var(--gold);min-height:2.4rem;margin-top:10px}
+
+section{margin-top:56px;background:var(--card);border:1px solid rgba(255,241,230,.14);border-radius:28px;padding:26px 22px;backdrop-filter:blur(6px)}
+h2{font-family:'Aref Ruqaa',serif;font-size:2rem;margin-bottom:6px}
+.sub{opacity:.75;margin-bottom:18px}
+
+/* game */
+#arena{position:relative;height:300px;border-radius:20px;overflow:hidden;background:rgba(0,0,0,.25);touch-action:manipulation}
+#arena .h{position:absolute;top:-40px;border:0;background:none;font-size:2.2rem;color:var(--rose);line-height:1;padding:6px}
+#hud{display:flex;justify-content:space-between;margin-bottom:10px;font-weight:800}
+#res{margin-top:12px;min-height:1.7em;color:var(--gold);font-weight:600}
+.mid{display:grid;place-items:center;height:100%;padding:16px;text-align:center}
+
+/* quiz */
+#qz{min-height:230px;position:relative}
+#qz h3{font-size:1.3rem;margin-bottom:14px}
+.opts{display:grid;gap:10px}
+.opt{background:rgba(255,241,230,.09);border:1px solid rgba(255,241,230,.22);border-radius:16px;padding:12px 16px;text-align:start;transition:background .2s,transform .2s}
+.opt:hover{background:rgba(255,77,121,.3);transform:translateX(-4px)}
+.rep{margin-top:14px;color:var(--gold);font-weight:600;min-height:1.7em}
+.dots{display:flex;gap:6px;margin-bottom:14px}
+.dots i{width:26px;height:5px;border-radius:5px;background:rgba(255,241,230,.2)}
+.dots i.on{background:var(--rose)}
+.fin{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;position:relative;min-height:80px}
+#no{transition:transform .25s}
+
+#end{text-align:center;margin-top:56px;font-family:'Aref Ruqaa',serif;font-size:1.6rem;line-height:1.9}
+
+/* music */
+#mus{position:fixed;z-index:20;bottom:18px;inset-inline-start:18px;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,241,230,.3);background:rgba(25,10,29,.8);font-size:1.3rem;backdrop-filter:blur(6px)}
+#mus.spin span{display:inline-block;animation:sp 3s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#ytbox{position:fixed;z-index:19;bottom:80px;inset-inline-start:18px;width:200px;height:113px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,241,230,.25);box-shadow:0 8px 24px rgba(0,0,0,.45);background:#000;opacity:0;pointer-events:none;transition:opacity .6s}
+body.go #ytbox{opacity:1;pointer-events:auto}
+#ytbox iframe{width:100%;height:100%;display:block}
+#hint{position:fixed;z-index:20;bottom:204px;inset-inline-start:18px;max-width:230px;font-size:.85rem;background:#000b;padding:8px 12px;border-radius:12px;display:none}
+#hint a{color:var(--gold)}
+.burst{position:fixed;z-index:60;pointer-events:none;font-size:1.6rem}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div>
+    <h1 id="t1">شيماء</h1>
+    <p>في حاجة صغيرة جهزتهالك مخصوص <span class="beat">💖</span></p>
+    <button class="btn" id="open">افتحي المفاجأة</button>
+  </div>
+</div>
+
+<div id="fl" aria-hidden="true"></div>
+
+<button id="mus" aria-label="تشغيل أو إيقاف الأغنية" title="وعدتك – عمرو دياب"><span>♫</span></button>
+<div id="ytbox"><div id="ytp"></div></div>
+<div id="hint">لو الأغنية ما بدأتش، اضغطي ▶ على المشغل الصغير. أو <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h1zpQUCaVnA">افتحيها على يوتيوب</a></div>
+
+<main>
+  <header><p>إلى أحلى حاجة في الدنيا</p></header>
+
+  <div class="wrap">
+    <div id="heart" role="img" aria-label="قلب مكتوب فيه أحبك بكل لغات العالم">
+      <svg id="outl" viewBox="0 0 260 245" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="og" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d79"/><stop offset="1" stop-color="#f6c177"/></linearGradient></defs><path id="op"/></svg>
+      <div id="nm">شيماء</div>
+    </div>
+  </div>
+
+  <p id="cap" aria-live="off"></p>
+
+  <section id="gm">
+    <h2>اصطادي القلوب</h2>
+    <p class="sub">معاكي ٢٠ ثانية. كل قلب تلمسيه بنقطة.</p>
+    <div id="hud"><span>النقاط: <b id="sc">0</b></span><span>الوقت: <b id="tm">20</b></span></div>
+    <div id="arena"><div class="mid"><button class="btn" id="go">ابدئي اللعبة</button></div></div>
+    <div id="res"></div>
+  </section>
+
+  <section id="qs">
+    <h2>أسئلة بيني وبينك</h2>
+    <p class="sub">جاوبي براحتك، كل الإجابات حلوة.</p>
+    <div id="qz"></div>
+  </section>
+
+  <p id="end">كل لغات الدنيا مش كفاية<br>أقولك فيها إني بحبك يا شيماء ♥</p>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+
+/* أحبك بكل لغات العالم (بدون العبرية) — "النص|اللغة" */
+const LOVE=`بحبك|المصرية
+أحبك|العربية الفصحى
+بعشقك|العربية العامية
+I love you|الإنجليزية
+Je t'aime|الفرنسية
+Te quiero|الإسبانية
+Ti amo|الإيطالية
+Ich liebe dich|الألمانية
+Eu te amo|البرتغالية
+Amo-te|البرتغالية الأوروبية
+Я тебя люблю|الروسية
+我爱你|الصينية
+我愛你|الصينية التقليدية
+我好鍾意你|الكانتونية
+愛してる|اليابانية
+사랑해|الكورية
+मैं तुमसे प्यार करता हूँ|الهندية
+Seni seviyorum|التركية
+دوستت دارم|الفارسية
+مجھے تم سے پیار ہے|الأردية
+Σ' αγαπώ|اليونانية
+Ik hou van je|الهولندية
+Jag älskar dig|السويدية
+Jeg elsker deg|النرويجية
+Eg elskar deg|النينورسك
+Jeg elsker dig|الدنماركية
+Minä rakastan sinua|الفنلندية
+Kocham cię|البولندية
+Miluji tě|التشيكية
+Milujem ťa|السلوفاكية
+Te iubesc|الرومانية
+Szeretlek|المجرية
+Я тебе кохаю|الأوكرانية
+Я цябе кахаю|البيلاروسية
+Обичам те|البلغارية
+Волим те|الصربية
+Volim te|الكرواتية
+Ljubim te|السلوفينية
+Те сакам|المقدونية
+Ma armastan sind|الإستونية
+Es tevi mīlu|اللاتفية
+Aš tave myliu|الليتوانية
+ฉันรักเธอ|التايلاندية
+Anh yêu em|الفيتنامية
+Aku cinta kamu|الإندونيسية
+Aku cintakan kamu|الماليزية
+Aku tresno karo kowe|الجاوية
+Mahal kita|الفلبينية
+Nakupenda|السواحيلية
+እወድሻለሁ|الأمهرية
+Waan ku jeclahay|الصومالية
+Ina son ka|الهوسا
+Mo nifẹ rẹ|اليوروبا
+Ngiyakuthanda|الزولو
+Ndiyakuthanda|الخوسا
+Ndinokuda|الشونا
+Ke a go rata|التسوانا
+Ndagukunda|الكينياروندا
+Ek is lief vir jou|الأفريكانية
+আমি তোমাকে ভালোবাসি|البنغالية
+ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ|البنجابية
+હું તને પ્રેમ કરું છું|الغوجاراتية
+मी तुझ्यावर प्रेम करतो|المراثية
+நான் உன்னை காதலிக்கிறேன்|التاميلية
+నేను నిన్ను ప్రేమిస్తున్నాను|التيلوغوية
+ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ|الكانادية
+ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു|المالايالامية
+म तिमीलाई माया गर्छु|النيبالية
+මම ඔබට ආදරෙයි|السنهالية
+ខ្ញុំស្រលាញ់អ្នក|الخميرية
+ຂ້ອຍຮັກເຈົ້າ|اللاوية
+ချစ်တယ်|البورمية
+Би чамд хайртай|المنغولية
+Мен сені сүйемін|الكازاخية
+Мен сени сүйөм|القيرغيزية
+Men seni sevaman|الأوزبكية
+Men seni söýýärin|التركمانية
+Ман туро дӯст медорам|الطاجيكية
+Səni sevirəm|الأذربيجانية
+Ես սիրում եմ քեզ|الأرمنية
+მიყვარხარ|الجورجية
+Ez te hez dikim|الكردية الكرمانجية
+خۆشم دەوێیت|الكردية السورانية
+Të dua|الألبانية
+Tá grá agam duit|الأيرلندية
+Tha gaol agam ort|الغيلية الاسكتلندية
+Dwi'n dy garu di|الويلزية
+Da garout a ran|البريتونية
+Ég elska þig|الأيسلندية
+Eg elski teg|الفاروية
+Ik hâld fan dy|الفريزية
+Ech hunn dech gär|اللوكسمبورغية
+Inħobbok|المالطية
+T'estimo|الكتالونية
+Quérote|الجاليكية
+Maite zaitut|الباسكية
+T'aimi|الأوكسيتانية
+Ti tengu caru|الكورسيكية
+Ti vogghiu beni|الصقلية
+M renmen w|الكريولية الهايتية
+Te amo|اللاتينية
+अहं त्वां प्रेम करोमि|السنسكريتية
+Mi amas vin|الإسبرانتو
+Aloha au iā ʻoe|الهاوايية
+Aroha ana ahau ki a koe|الماورية
+Ou te alofa ia te oe|الساموية
+ʻOku ou ʻofa ʻiate koe|التونغية
+Ua here vau ia oe|التاهيتية
+Au domoni iko|الفيجية
+Munayqayki|الكيتشوا
+Rohayhu|الغواراني
+Ayóó ánííníshní|النافاجو`.split('\n').map(l=>{const i=l.lastIndexOf('|');return{t:l.slice(0,i),n:l.slice(i+1)}});
+
+/* شكل القلب: معادلة ضمنية، والحدود بتتحسب مرة واحدة للإطار */
+const f=(x,y)=>{const a=x*x+y*y-1;return a*a*a-x*x*y*y*y};
+const inH=(x,y,m=0)=>f(x,y)<-m;
+(function(){
+  let d='';
+  for(let i=0;i<720;i++){
+    const a=i/720*Math.PI*2,c=Math.cos(a),s=Math.sin(a);let r=.2;
+    while(inH(c*(r+.004),s*(r+.004)))r+=.004;
+    d+=(i?'L':'M')+(((c*r)+1.3)/2.6*260).toFixed(1)+' '+((1.3-s*r)/2.45*245).toFixed(1);
+  }
+  const op=$('#op');op.setAttribute('d',d+'Z');op.setAttribute('pathLength','1');
+})();
+
+/* كل سطر بيتملي بكلمات على قد عرض القلب في السطر ده، فالحواف بتطلع واضحة */
+let started=false,tick,prev=null;
+function build(){
+  const box=$('#heart');box.querySelectorAll('.w').forEach(e=>e.remove());
+  const W=box.clientWidth,rows=W<480?19:25,fs=Math.max(8.5,W*.0235),gap=fs*.9;
+  const pool=[...LOVE].sort(()=>Math.random()-.5);let p=0;const cache=new Map();
+  const wd=o=>{if(cache.has(o))return cache.get(o);const m=document.createElement('span');m.className='w';m.style.cssText='visibility:hidden;left:0;top:0';m.textContent=o.t;box.appendChild(m);const w=m.offsetWidth;m.remove();cache.set(o,w);return w};
+  for(let r=0;r<rows;r++){
+    const y=1.2-(r+.5)/rows*2.2;
+    let iv=[],on=false,a0=0;
+    for(let x=-1.35;x<=1.35;x+=.01){const i=inH(x,y,.015);if(i&&!on){on=true;a0=x}else if(!i&&on){on=false;iv.push([a0,x])}}
+    if(on)iv.push([a0,1.35]);
+    if(Math.abs(y-.3)<.3)iv=iv.flatMap(([a,b])=>[[a,Math.min(b,-.55)],[Math.max(a,.55),b]]).filter(([a,b])=>b>a); /* مكان الاسم */
+    for(let [a,b] of iv){
+      a+=.035;b-=.035;const avail=(b-a)/2.6*W;if(avail<fs*3.2)continue;
+      const items=[];let sumW=0;
+      for(let t=0;t<14;t++){const o=pool[p++%pool.length],w=wd(o);if(sumW+items.length*gap+w<=avail){items.push({o,w});sumW+=w}}
+      const n=items.length;if(!n)continue;
+      let g=n>1?(avail-sumW)/(n-1):0,x0=(a+1.3)/2.6*W;
+      if(n===1||g>fs*3){g=Math.min(g,fs*1.6);x0+=(avail-(sumW+g*(n-1)))/2}
+      let cur=0;
+      for(const it of items){
+        const cx=x0+cur+it.w/2;cur+=it.w+g;
+        const s=document.createElement('span');s.className='w';s.textContent=it.o.t;s.dataset.n=it.o.n;
+        s.dir=/[\u0590-\u08FF]/.test(it.o.t)?'rtl':'ltr';
+        s.style.left=(cx/W*100).toFixed(2)+'%';s.style.top=((1.3-y)/2.45*100).toFixed(2)+'%';
+        const h=Math.random()<.65?rnd(335,360):rnd(25,45);
+        s.style.color=`hsl(${h} 95% ${rnd(70,85)}%)`;
+        s.style.setProperty('--d',(Math.hypot(cx/W*2.6-1.3,y-.3)*.7+rnd(0,.4)+.3).toFixed(2)+'s');
+        box.appendChild(s);
+      }
+    }
+  }
+  prev=null;if(started)light();
+}
+/* إنارة لغة لغة */
+function light(){
+  clearInterval(tick);
+  const els=[...$('#heart').querySelectorAll('.w')];
+  const order=els.map((_,i)=>i).sort(()=>Math.random()-.5);let k=0;
+  tick=setInterval(()=>{
+    if(prev)prev.classList.remove('lit');
+    const e=els[order[k++%order.length]];e.classList.add('lit');prev=e;
+    $('#cap').textContent='أحبك ب'+e.dataset.n;
+  },1300);
+}
+$('#heart').addEventListener('animationend',e=>{if(e.animationName==='pop'&&e.target.classList.contains('w'))e.target.classList.add('done')});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(build,250)});
+build();
+
+/* قلوب طايرة */
+setInterval(()=>{
+  const s=document.createElement('span');s.textContent=Math.random()<.5?'♥':'❤';
+  s.style.left=rnd(0,100)+'%';s.style.fontSize=rnd(14,36)+'px';
+  s.style.animationDuration=rnd(7,13)+'s';
+  $('#fl').appendChild(s);s.addEventListener('animationend',()=>s.remove());
+},650);
+
+/* موسيقى: وعدتك – عمرو دياب (مشغل يوتيوب مدمج) */
+const YT_IDS=['h1zpQUCaVnA','16BIMgsNlL4','UKJ9tgFoprs']; /* الأول الفيديو الرسمي، والباقي بدائل لو التضمين اتقفل */
+let yt=null,ytReady=false,ytIdx=0,wantPlay=false,playing=false;
+const mus=$('#mus');
+function setPlay(on){playing=on;mus.classList.toggle('spin',on);if(on)$('#hint').style.display='none'}
+function initYT(){
+  yt=new YT.Player('ytp',{videoId:YT_IDS[0],width:'200',height:'113',playerVars:{playsinline:1,rel:0,modestbranding:1},events:{
+    onReady:()=>{ytReady=true;if(wantPlay)yt.playVideo()},
+    onStateChange:e=>{if(e.data===0){yt.seekTo(0);yt.playVideo()}setPlay(e.data===1)},
+    onError:()=>{if(++ytIdx<YT_IDS.length)yt.loadVideoById(YT_IDS[ytIdx]);else $('#hint').style.display='block'}
+  }});
+}
+window.onYouTubeIframeAPIReady=initYT;
+{const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t)}
+function play(){wantPlay=true;if(ytReady)yt.playVideo();setTimeout(()=>{if(!playing)$('#hint').style.display='block'},3000)}
+mus.onclick=()=>{if(!ytReady)return;playing?(wantPlay=false,yt.pauseVideo()):(wantPlay=true,yt.playVideo())};
+$('#open').onclick=()=>{$('#intro').classList.add('off');document.body.classList.add('go');$('#heart').classList.add('go');play();setTimeout(()=>{started=true;light()},3800)};
+
+/* لعبة */
+let sc=0,left=20,timer,spawn;
+$('#go').onclick=startGame;
+function startGame(){
+  const ar=$('#arena');ar.innerHTML='';sc=0;left=20;$('#sc').textContent=0;$('#tm').textContent=20;$('#res').textContent='';
+  spawn=setInterval(()=>{
+    const h=document.createElement('button');h.className='h';h.textContent='♥';h.setAttribute('aria-label','قلب');
+    h.style.left=rnd(2,Math.max(5,ar.clientWidth-50))+'px';
+    h.style.color=`hsl(${rnd(335,360)} 95% ${rnd(55,72)}%)`;
+    const a=h.animate([{transform:'translateY(0)'},{transform:`translateY(${ar.clientHeight+50}px)`}],{duration:rnd(2200,3600),easing:'linear'});
+    a.onfinish=()=>h.remove();
+    h.onpointerdown=e=>{e.preventDefault();sc++;$('#sc').textContent=sc;burst(e.clientX,e.clientY);h.remove()};
+    ar.appendChild(h);
+  },480);
+  timer=setInterval(()=>{
+    $('#tm').textContent=--left;
+    if(left<=0){clearInterval(timer);clearInterval(spawn);ar.innerHTML=`<div class="mid"><div><p style="font-size:1.4rem;font-weight:800">جمعتي ${sc} قلب</p><p style="margin:6px 0 14px">وكلهم مش بيساووا قلبك عندي ♥</p><button class="btn ghost" id="again">العبي تاني</button></div></div>`;
+      $('#res').textContent=sc>=20?'أسطورة اصطياد القلوب 👑':sc>=10?'حلو أوي، بس قلبي لسه معاكي أكتر 😄':'ولا يهمك، قلبي أصلاً عندك من زمان 💘';
+      $('#again').onclick=startGame}
+  },1000);
+}
+function burst(x,y){
+  for(let i=0;i<5;i++){
+    const b=document.createElement('span');b.className='burst';b.textContent='💖';b.style.left=x+'px';b.style.top=y+'px';document.body.appendChild(b);
+    b.animate([{transform:'translate(0,0) scale(.6)',opacity:1},{transform:`translate(${rnd(-70,70)}px,${rnd(-90,-20)}px) scale(1.1)`,opacity:0}],{duration:700,easing:'ease-out'}).onfinish=()=>b.remove();
+  }
+}
+
+/* أسئلة */
+const Q=[
+ {q:"أحلى حاجة في يومي؟",o:["لما أسمع صوتك","لما أشوف رسالة منك","لما أفتكر ضحكتك"],r:"وأنا كل ده بيحصلي بسببك يا شيماء 💕"},
+ {q:"لو هنسافر سوا، رايحين فين؟",o:["مكان على البحر","مدينة قديمة نتمشى فيها","أي حته المهم معاكي"],r:"أي مكان تختاريه هيبقى أحلى مكان 🌍"},
+ {q:"إيه أكتر حاجة بتفرحك؟",o:["اهتمام بسيط من حد بتحبيه","مفاجأة حلوة","أغنية تحبيها"],r:"وأنا هجيبلك الاتنين والتلاتة كمان 🎁"},
+ {q:"كلمة تعبّر عنك عندي؟",o:["الأمان","الفرحة","الدنيا كلها"],r:"كلها صح، وأكتر 💗"}
+];
+let qi=0;
+function showQ(){
+  const z=$('#qz');
+  if(qi>=Q.length){
+    z.innerHTML=`<div class="dots">${Q.map(()=>'<i class="on"></i>').join('')}<i class="on"></i></div><h3>آخر سؤال: بتحبيني يا شيماء؟</h3><div class="fin"><button class="btn" id="yes">أيوه ♥</button><button class="btn ghost" id="no">لأ</button></div><div class="rep" id="fr"></div>`;
+    const no=$('#no');const run=()=>{no.style.transform=`translate(${rnd(-90,90)}px,${rnd(-30,60)}px)`};
+    no.onpointerenter=run;no.onpointerdown=e=>{e.preventDefault();run()};no.onclick=e=>e.preventDefault();
+    $('#yes').onclick=e=>{
+      $('#fr').textContent='كنت عارف! أنا كمان بحبك أكتر بكتير 💖';no.style.display='none';
+      for(let i=0;i<30;i++)setTimeout(()=>burst(rnd(30,innerWidth-30),rnd(innerHeight*.3,innerHeight*.8)),i*70);
+    };
+    return;
+  }
+  const d=Q[qi];
+  z.innerHTML=`<div class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}<i></i></div><h3>${d.q}</h3><div class="opts">${d.o.map(t=>`<button class="opt">${t}</button>`).join('')}</div><div class="rep" id="rp"></div>`;
+  z.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    z.querySelectorAll('.opt').forEach(x=>x.disabled=true);$('#rp').textContent=d.r;
+    setTimeout(()=>{qi++;showQ()},1700);
+  });
+}
+showQ();
+</script>
+</body>
+</html>
